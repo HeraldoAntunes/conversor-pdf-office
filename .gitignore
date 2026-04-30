@@ -1,0 +1,18 @@
+# Arquivos gerados
+*.pdf
+
+# Documentos usados apenas para teste local
+*.doc
+*.docx
+*.ppt
+*.pptx
+
+# Temporários do Office
+~$*
+
+# Sistema
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
