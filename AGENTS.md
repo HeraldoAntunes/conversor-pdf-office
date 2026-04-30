@@ -19,6 +19,19 @@ Com base nos arquivos existentes, o fluxo esperado é:
 3. O PowerShell localizar arquivos Word/PowerPoint na pasta do script.
 4. Os PDFs resultantes são gravados na mesma pasta.
 
+## Hierarquia de contexto
+
+Quando houver conflito entre instruções, use esta ordem de precedência:
+
+1. Instrução explícita do usuário na conversa atual.
+2. `AGENTS.md`.
+3. `docs/PROJECT_STATE.md`.
+4. `docs/HANDOFF.md`.
+5. `README.md`.
+6. Código real do projeto como fonte final de comportamento executável.
+
+`docs/HANDOFF.md` não substitui `docs/PROJECT_STATE.md`. O `HANDOFF` é um documento de transferência; o `PROJECT_STATE` é a memória operacional contínua.
+
 ## Estrutura real do repositório
 
 ```text
@@ -28,7 +41,8 @@ Com base nos arquivos existentes, o fluxo esperado é:
 ├── README.md
 ├── converterPDF.ps1
 ├── docs/
-│   └── HANDOFF.md
+│   ├── HANDOFF.md
+│   └── PROJECT_STATE.md
 └── rodar.bat
 ```
 
@@ -36,10 +50,11 @@ Com base nos arquivos existentes, o fluxo esperado é:
 
 - `converterPDF.ps1`: script principal. Usa `$PSScriptRoot` para operar na pasta onde o script está salvo, busca arquivos `.doc`, `.docx`, `.ppt` e `.pptx`, abre Word e PowerPoint por COM Automation, salva cada arquivo como PDF e libera os objetos COM ao final.
 - `rodar.bat`: atalho de execução no Windows. Chama `powershell.exe -ExecutionPolicy Bypass -File "%~dp0converterPDF.ps1"` e mantém a janela aberta com `pause`.
-- `README.md`: documentação voltada ao usuário final, com objetivo, uso básico, requisitos e aviso de segurança.
+- `README.md`: guia humano do projeto, com objetivo, uso básico, requisitos, segurança e visão simples da arquitetura de contexto.
 - `.gitignore`: evita versionar PDFs gerados, documentos Office usados localmente, temporários do Office, arquivos de sistema e logs.
-- `docs/HANDOFF.md`: memória operacional do projeto para continuidade entre sessões, máquinas e agentes.
-- `AGENTS.md`: guia permanente de regras para agentes. Não deve virar diário de trabalho.
+- `docs/PROJECT_STATE.md`: estado operacional vivo do projeto. Deve registrar estado atual, decisões em vigor, pendências, limitações, testes e próximos passos.
+- `docs/HANDOFF.md`: documento oficial de passagem de contexto para outro chat, agente, máquina ou sessão.
+- `AGENTS.md`: guia permanente de regras para agentes. Não deve virar diário de bordo.
 
 ## Prioridades de trabalho
 
@@ -48,7 +63,7 @@ Com base nos arquivos existentes, o fluxo esperado é:
 3. Manter compatibilidade com Windows e Microsoft Office instalado localmente.
 4. Não versionar documentos reais, PDFs gerados, temporários ou dados pessoais.
 5. Melhorar segurança, robustez e mensagens de erro sem transformar o projeto em algo maior que o necessário.
-6. Documentar mudanças relevantes em `README.md` e `docs/HANDOFF.md`.
+6. Documentar mudanças relevantes em `README.md`, `docs/PROJECT_STATE.md` e, quando houver passagem de contexto, `docs/HANDOFF.md`.
 
 ## Regras de segurança e privacidade
 
@@ -59,6 +74,7 @@ Com base nos arquivos existentes, o fluxo esperado é:
 - Evitar coletar, exibir ou registrar conteúdo interno dos documentos convertidos.
 - Se precisar criar exemplos, usar nomes e dados fictícios mínimos.
 - Se encontrar arquivo possivelmente sensível no repositório, não abrir além do necessário, não copiar conteúdo e avisar no resumo.
+- Não colocar `AGENTS.md`, `docs/PROJECT_STATE.md` ou `docs/HANDOFF.md` no `.gitignore`.
 
 ## Padrões de código
 
@@ -80,6 +96,30 @@ Com base nos arquivos existentes, o fluxo esperado é:
 - Atualizar a documentação no mesmo conjunto de mudanças quando comportamento, requisitos, execução ou segurança mudarem.
 - Evitar transformar documentos em histórico de conversa.
 
+## Regras para uso de README.md
+
+- `README.md` é a entrada para pessoas.
+- Deve explicar o que o conversor faz, requisitos, como executar, arquivos principais e riscos básicos.
+- Deve incluir uma explicação curta da arquitetura de contexto para que pessoas leigas entendam a função dos documentos de IA.
+- Deve evitar histórico interno, diário de decisões e pendências operacionais extensas.
+- Deve ser atualizado quando houver mudança de uso, requisitos, arquivos principais, limitações ou avisos de segurança.
+
+## Regras para uso de docs/PROJECT_STATE.md
+
+- `docs/PROJECT_STATE.md` é a memória operacional contínua do projeto.
+- Deve registrar estado atual, estrutura real, decisões em vigor, arquivos principais, pendências, limitações, testes feitos, testes pendentes e próximos passos.
+- Pode ser atualizado por agentes quando houver mudança relevante em arquivos, arquitetura, comportamento, dependências, segurança, documentação, testes ou próximos passos.
+- Deve permanecer denso, técnico, limpo e acionável.
+- Não deve virar diário de conversa.
+
+## Regras para uso de docs/HANDOFF.md
+
+- `docs/HANDOFF.md` é o documento oficial de passagem de contexto.
+- Deve servir para transferir o projeto para outro chat, outro agente, outra máquina ou outra sessão.
+- Deve ser autocontido, denso, técnico e acionável.
+- Não deve ser usado como memória operacional principal.
+- Deve ser atualizado quando o usuário pedir uma passagem de contexto ou quando uma tarefa relevante terminar e houver necessidade clara de exportar contexto.
+
 ## Cuidados com Git e GitHub
 
 - Antes de alterar arquivos, verificar o estado com `git status --short`.
@@ -89,29 +129,15 @@ Com base nos arquivos existentes, o fluxo esperado é:
 - Revisar diffs antes de sugerir commit.
 - Em pull requests, explicar impacto para usuários Windows e qualquer mudança em requisitos de Office/PowerShell.
 
-## Regras para uso de README.md
+## Rotina de leitura para agentes
 
-- `README.md` é a entrada para usuários do projeto.
-- Deve explicar o que o conversor faz, requisitos, como executar e riscos básicos.
-- Deve evitar detalhes internos extensos, histórico de decisões e pendências operacionais.
-- Deve ser atualizado quando houver mudança de uso, requisitos, arquivos principais, limitações ou avisos de segurança.
-
-## Regras para uso de docs/HANDOFF.md
-
-- `docs/HANDOFF.md` é a memória operacional do projeto.
-- Deve registrar estado atual, decisões, próximos passos, pendências, limitações e observações úteis para continuidade.
-- Deve ser atualizado ao final de alteração relevante em arquivos, arquitetura, comportamento, dependências, segurança, documentação ou próximos passos.
-- Não deve virar diário de conversa, ata de sessão ou lista de eventos sem valor futuro.
-- Deve permanecer denso, técnico, limpo e acionável.
-
-## Rotina para agentes de IA
-
-Ao iniciar tarefa não trivial, leia nesta ordem:
+Ao iniciar qualquer tarefa não trivial, o agente deve ler:
 
 1. `README.md`
 2. `AGENTS.md`
-3. `docs/HANDOFF.md`
-4. Arquivos diretamente relacionados à tarefa
+3. `docs/PROJECT_STATE.md`
+4. `docs/HANDOFF.md`, se a tarefa envolver retomada de contexto, passagem para outro chat/agente ou continuidade de sessão
+5. Arquivos diretamente relacionados à tarefa
 
 Durante o trabalho:
 
@@ -120,10 +146,15 @@ Durante o trabalho:
 - Não altere arquivos de código quando a tarefa for apenas documental, salvo necessidade explícita.
 - Preserve mudanças existentes feitas pelo usuário.
 
-Ao finalizar alteração relevante:
+## Rotina de encerramento para agentes
 
-- Atualize `docs/HANDOFF.md` com o novo estado, decisões, pendências e próximos passos úteis.
-- Não altere `AGENTS.md` automaticamente, a menos que o usuário peça ou a própria tarefa seja mudar regras permanentes.
+Ao finalizar uma alteração relevante, o agente deve:
+
+1. Avaliar se `docs/PROJECT_STATE.md` precisa ser atualizado.
+2. Atualizar `docs/PROJECT_STATE.md` quando houver mudança de estado, decisão, comportamento, limitação, teste ou próximo passo.
+3. Atualizar `docs/HANDOFF.md` quando o usuário pedir handoff ou quando a tarefa gerar um ponto claro de passagem para outro chat/agente.
+4. Recomendar atualização do `AGENTS.md` quando regras permanentes tiverem mudado.
+5. Não alterar `AGENTS.md` sem pedido explícito do usuário.
 
 ## Quando recomendar atualização de AGENTS.md
 
@@ -136,5 +167,6 @@ Recomende atualizar `AGENTS.md` quando houver mudança permanente em:
 - padrões de código;
 - rotina de documentação;
 - estratégia de Git/GitHub;
-- critérios de versionamento ou arquivos proibidos.
+- critérios de versionamento ou arquivos proibidos;
+- hierarquia entre documentos de contexto.
 

@@ -1,83 +1,89 @@
 # HANDOFF.md
 
-Memória operacional para continuidade deste projeto entre sessões, máquinas e agentes.
+Documento oficial de passagem de contexto para outro chat, agente, máquina ou sessão.
 
-## Objetivo do projeto
+Última atualização: 2026-04-30
 
-Utilitário local para Windows que converte documentos do Microsoft Word e apresentações do Microsoft PowerPoint para PDF usando PowerShell e automação COM do Microsoft Office.
+## Tema
 
-O escopo comprovado no repositório é converter arquivos `.doc`, `.docx`, `.ppt` e `.pptx` localizados na mesma pasta do script para PDFs gerados nessa mesma pasta.
+Conversor PDF Office: utilitário PowerShell para converter arquivos Word e PowerPoint em PDF no Windows usando Microsoft Office local via COM Automation.
+
+## Status
+
+Arquitetura de contexto padronizada:
+
+- `README.md`: guia humano do projeto.
+- `AGENTS.md`: regras permanentes para agentes.
+- `docs/PROJECT_STATE.md`: estado operacional vivo.
+- `docs/HANDOFF.md`: passagem de contexto.
+
+O código do conversor não foi alterado nesta padronização documental.
+
+## Complexidade
+
+Baixa em estrutura de repositório e documentação. Média em execução real, porque depende de Windows, Microsoft Office instalado, COM Automation e arquivos Office locais.
+
+## Objetivo
+
+Manter um utilitário simples que converte arquivos `.doc`, `.docx`, `.ppt` e `.pptx` localizados na pasta do script em PDFs gerados na mesma pasta.
 
 ## Estado atual
 
-- Projeto pequeno, sem estrutura de build, dependências externas, testes automatizados ou aplicação empacotada.
-- A implementação principal está em `converterPDF.ps1`.
-- A execução simplificada para usuário Windows está em `rodar.bat`.
-- O README documenta uso básico, requisitos e o risco de `ExecutionPolicy Bypass`.
-- `.gitignore` impede versionar PDFs gerados, documentos Office locais, temporários do Office, arquivos de sistema e logs.
-- `AGENTS.md` foi criado como guia permanente para agentes de IA.
-- Este arquivo registra o contexto operacional e deve ser mantido enxuto.
+- Script principal: `converterPDF.ps1`.
+- Atalho de execução: `rodar.bat`.
+- Documentação humana: `README.md`.
+- Regras de agentes: `AGENTS.md`.
+- Memória operacional contínua: `docs/PROJECT_STATE.md`.
+- Handoff de contexto: `docs/HANDOFF.md`.
+- Não há testes automatizados, build, empacotamento ou dependências externas.
 
-## Arquivos principais
+## Artefatos principais
 
-- `converterPDF.ps1`: busca arquivos Office na pasta do script, converte Word para PDF com `SaveAs(..., 17)` e PowerPoint para PDF com `SaveAs(..., 32)`, fecha documentos/apresentações e libera objetos COM.
-- `rodar.bat`: chama o script PowerShell com `ExecutionPolicy Bypass` usando o caminho do próprio `.bat`.
-- `README.md`: documentação de uso para pessoas que querem executar o conversor.
-- `.gitignore`: proteção contra versionamento de arquivos gerados e documentos reais.
-- `AGENTS.md`: regras permanentes para trabalho de agentes.
-- `docs/HANDOFF.md`: estado operacional e próximos passos.
+- `converterPDF.ps1`: usa `$PSScriptRoot`, localiza arquivos Word/PowerPoint na pasta do script, converte via Word/PowerPoint COM, fecha documentos/apresentações e libera objetos COM.
+- `rodar.bat`: executa o PowerShell com `ExecutionPolicy Bypass` apontando para `converterPDF.ps1`.
+- `.gitignore`: ignora PDFs, documentos Office locais, temporários do Office, arquivos de sistema e logs.
+- `docs/PROJECT_STATE.md`: fonte principal para estado atual, decisões, limitações, testes e próximos passos.
 
-## Decisões já tomadas
+## Decisões tomadas
 
-- Manter o projeto como utilitário local simples, sem dependências externas.
-- Usar Microsoft Office instalado localmente via COM Automation, não conversores remotos.
-- Operar na pasta onde `converterPDF.ps1` está salvo.
-- Gerar PDFs ao lado dos arquivos originais.
-- Ignorar documentos Office e PDFs no Git para evitar vazamento de dados e arquivos gerados.
-- Separar documentação permanente de agentes (`AGENTS.md`) da memória operacional (`docs/HANDOFF.md`).
+- Manter o projeto simples e local.
+- Não introduzir dependências externas ou serviços remotos sem pedido explícito.
+- Não versionar documentos reais, PDFs gerados, temporários ou logs.
+- Separar memória operacional (`docs/PROJECT_STATE.md`) de passagem de contexto (`docs/HANDOFF.md`).
+- Manter `AGENTS.md` como documento estável, alterado apenas quando o usuário pedir ou quando a tarefa for atualizar regras permanentes.
 
-## Próximos passos sugeridos
+## Questões abertas
 
-- Revisar se as barras invertidas presentes no `README.md` antes de marcadores Markdown são intencionais ou devem ser removidas para melhorar renderização.
-- Avaliar mensagens de erro mais informativas em `converterPDF.ps1`, sem expor conteúdo dos documentos.
-- Considerar tratamento para arquivos já abertos, protegidos por senha ou com falha de macro/Office.
-- Considerar opção segura para pular conversão quando o PDF de destino já existir.
-- Validar manualmente em uma máquina Windows com Word e PowerPoint instalados.
-- Se o projeto crescer, considerar uma pequena seção de troubleshooting no `README.md`.
+- Conversão ainda precisa ser validada manualmente em Windows com Word e PowerPoint instalados.
+- Comportamento com arquivos protegidos por senha, abertos em outro processo ou corrompidos ainda não foi validado.
+- Comportamento desejado quando o PDF de destino já existe ainda não foi definido.
+- Mensagens de erro podem ser melhoradas sem expor conteúdo dos documentos.
 
-## Pendências
+## Restrições
 
-- Não há testes automatizados.
-- Não há validação documentada em ambiente real nesta sessão.
-- Não há empacotamento, instalador ou assinatura de script.
-- O comportamento com LibreOffice, Office online ou ambientes sem COM Automation não é suportado/documentado como funcional.
-- Erros de conversão atualmente são reportados de forma genérica no console.
+- Não alterar arquivos de código em tarefas puramente documentais.
+- Não incluir chaves de API, tokens, senhas, credenciais, dados pessoais, documentos de alunos, documentos institucionais sensíveis, logs ou arquivos temporários.
+- Não colocar `AGENTS.md`, `docs/PROJECT_STATE.md` ou `docs/HANDOFF.md` no `.gitignore`.
+- Tratar arquivos Office como potencialmente sensíveis.
+- Preservar aviso de segurança sobre `ExecutionPolicy Bypass`.
 
-## Limitações conhecidas
+## Estilo e preferências relevantes
 
-- Requer Windows.
-- Requer Microsoft Word para `.doc` e `.docx`.
-- Requer Microsoft PowerPoint para `.ppt` e `.pptx`.
-- Depende de automação COM do Office, que pode falhar se o Office não estiver instalado, licenciado ou acessível.
-- `rodar.bat` usa `ExecutionPolicy Bypass`, exigindo cuidado ao executar.
-- O script processa apenas arquivos diretamente na pasta do script; não há busca recursiva.
-- PDFs são gerados na mesma pasta dos arquivos originais.
-- Arquivos Office reais e PDFs gerados não devem ser versionados.
+- Documentação em português.
+- Textos densos, técnicos, limpos e acionáveis.
+- Não inventar funcionalidades que não existem no repositório.
+- Separar claramente documentação para pessoas, regras permanentes de agentes, estado operacional e passagem de contexto.
 
-## Rotina Git recomendada
+## Próximo passo recomendado
 
-1. Verificar estado: `git status --short`
-2. Revisar diferenças: `git diff`
-3. Adicionar apenas arquivos intencionais: `git add AGENTS.md docs/HANDOFF.md`
-4. Criar commit focado: `git commit -m "Add AI agent project context"`
+Validar manualmente a conversão em uma máquina Windows com Microsoft Word e PowerPoint instalados. Depois, se necessário, melhorar tratamento de erro e comportamento para PDFs de destino já existentes.
 
-Para mudanças futuras, manter commits pequenos e evitar incluir documentos pessoais, PDFs gerados, temporários do Office ou logs.
+## Instruções para a próxima IA
 
-## Observações para continuidade
-
-- Antes de tarefa não trivial, ler `README.md`, `AGENTS.md` e este arquivo.
-- Atualizar este arquivo após mudanças relevantes em comportamento, documentação, segurança, dependências ou próximos passos.
-- Não atualizar `AGENTS.md` automaticamente; propor alteração quando regras permanentes precisarem mudar.
-- Ao mexer no script, preservar fechamento de arquivos Office e liberação dos objetos COM.
-- Ao melhorar segurança, manter visível o aviso sobre `ExecutionPolicy Bypass`.
+1. Leia `README.md`, `AGENTS.md` e `docs/PROJECT_STATE.md` antes de iniciar tarefa não trivial.
+2. Use este `docs/HANDOFF.md` apenas como documento de transferência; não o trate como memória operacional principal.
+3. Confirme `git status --short` antes de editar.
+4. Baseie qualquer mudança no código real existente.
+5. Atualize `docs/PROJECT_STATE.md` ao final de mudança relevante.
+6. Atualize este `docs/HANDOFF.md` apenas se houver pedido de handoff ou novo ponto claro de passagem de contexto.
 
