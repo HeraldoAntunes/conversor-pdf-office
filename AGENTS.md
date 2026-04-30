@@ -65,6 +65,29 @@ Quando houver conflito entre instruções, use esta ordem de precedência:
 5. Melhorar segurança, robustez e mensagens de erro sem transformar o projeto em algo maior que o necessário.
 6. Documentar mudanças relevantes em `README.md`, `docs/PROJECT_STATE.md` e, quando houver passagem de contexto, `docs/HANDOFF.md`.
 
+## Simplicidade arquitetural
+
+- Prefira a solução mais simples que resolva o problema real atual.
+- Preserve o funcionamento local e direto do projeto.
+- Evite criar camadas, interfaces, DTOs, mappers, factories, services, use cases ou patterns apenas por convenção.
+- Não introduza Clean Architecture completa, arquitetura hexagonal, CQRS, event sourcing, microservices, DDD tático completo, repository pattern formal ou dependency inversion sem justificativa explícita.
+- Separe responsabilidades de forma simples, sem multiplicar arquivos desnecessariamente.
+- Prefira encapsulamento simples antes de interfaces formais.
+- Não crie interface para algo que tem apenas uma implementação, salvo necessidade real documentada.
+- Não reorganize o projeto inteiro sem pedido explícito.
+- Comece simples e abstraia apenas quando houver dor concreta.
+- Considere que cada arquivo, camada e indireção aumenta custo de leitura, revisão e contexto para agentes de IA.
+- Quando aplicável, mantenha lógica de negócio separada de detalhes de interface, DOM, HTTP, armazenamento local, arquivos ou integrações, mas sem cerimônia arquitetural desnecessária.
+
+Antes de criar nova abstração, responda:
+
+- Esta abstração resolve um problema real já existente?
+- Há pelo menos dois usos concretos?
+- Ela reduz duplicação ou só espalha código?
+- Ela facilita teste e manutenção ou aumenta navegação?
+- O custo em arquivos, imports e contexto compensa?
+- Se a resposta for duvidosa, mantenha simples.
+
 ## Regras de segurança e privacidade
 
 - Nunca incluir chaves de API, tokens, senhas, credenciais, caminhos pessoais sensíveis ou documentos reais no repositório.
@@ -169,4 +192,3 @@ Recomende atualizar `AGENTS.md` quando houver mudança permanente em:
 - estratégia de Git/GitHub;
 - critérios de versionamento ou arquivos proibidos;
 - hierarquia entre documentos de contexto.
-

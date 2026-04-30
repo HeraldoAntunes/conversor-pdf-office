@@ -51,6 +51,7 @@ Manter um utilitário simples que converte arquivos `.doc`, `.docx`, `.ppt` e `.
 - Não versionar documentos reais, PDFs gerados, temporários ou logs.
 - Separar memória operacional (`docs/PROJECT_STATE.md`) de passagem de contexto (`docs/HANDOFF.md`).
 - Manter `AGENTS.md` como documento estável, alterado apenas quando o usuário pedir ou quando a tarefa for atualizar regras permanentes.
+- Priorizar arquitetura suficiente e evitar overengineering em projetos pequenos e médios.
 
 ## Questões abertas
 
@@ -73,6 +74,7 @@ Manter um utilitário simples que converte arquivos `.doc`, `.docx`, `.ppt` e `.
 - Textos densos, técnicos, limpos e acionáveis.
 - Não inventar funcionalidades que não existem no repositório.
 - Separar claramente documentação para pessoas, regras permanentes de agentes, estado operacional e passagem de contexto.
+- Preferir soluções simples e de baixo custo de contexto para agentes de IA.
 
 ## Próximo passo recomendado
 
@@ -86,4 +88,3 @@ Validar manualmente a conversão em uma máquina Windows com Microsoft Word e Po
 4. Baseie qualquer mudança no código real existente.
 5. Atualize `docs/PROJECT_STATE.md` ao final de mudança relevante.
 6. Atualize este `docs/HANDOFF.md` apenas se houver pedido de handoff ou novo ponto claro de passagem de contexto.
-

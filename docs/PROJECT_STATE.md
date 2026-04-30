@@ -55,6 +55,7 @@ O escopo comprovado no repositório é converter arquivos `.doc`, `.docx`, `.ppt
 - Usar `docs/PROJECT_STATE.md` como memória operacional contínua.
 - Usar `docs/HANDOFF.md` apenas como documento de transferência de contexto.
 - Não alterar `AGENTS.md` automaticamente no futuro; recomendar mudança quando regras permanentes precisarem ser atualizadas.
+- Priorizar arquitetura suficiente: resolver o problema atual com a menor estrutura clara possível, evitando camadas, interfaces e patterns formais sem necessidade real documentada.
 
 ## Limitações conhecidas
 
@@ -101,4 +102,3 @@ Para retomar o projeto:
 3. Rode `git status --short`.
 4. Abra os arquivos diretamente relacionados à tarefa antes de editar.
 5. Evite arquivos reais de alunos, documentos institucionais sensíveis, PDFs gerados, logs e temporários.
-
