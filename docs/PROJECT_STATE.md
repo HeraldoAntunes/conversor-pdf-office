@@ -2,7 +2,7 @@
 
 Estado operacional vivo do projeto. Este arquivo substitui o uso antigo de `docs/HANDOFF.md` como memória dinâmica.
 
-Última atualização: 2026-04-30
+Última atualização: 2026-05-03
 
 ## Objetivo do projeto
 
@@ -18,6 +18,7 @@ O escopo comprovado no repositório é converter arquivos `.doc`, `.docx`, `.ppt
 - O README documenta uso básico, requisitos, segurança e arquitetura de contexto.
 - `.gitignore` impede versionar PDFs gerados, documentos Office locais, temporários do Office, arquivos de sistema e logs.
 - `AGENTS.md` contém as regras permanentes para agentes.
+- `CLAUDE.md` atua como adaptador para Claude Code / Claude Desktop, apontando para `AGENTS.md` como fonte principal de regras compartilhadas.
 - `docs/PROJECT_STATE.md` é a memória operacional contínua.
 - `docs/HANDOFF.md` é o documento de passagem de contexto.
 
@@ -27,6 +28,7 @@ O escopo comprovado no repositório é converter arquivos `.doc`, `.docx`, `.ppt
 .
 ├── .gitignore
 ├── AGENTS.md
+├── CLAUDE.md
 ├── README.md
 ├── converterPDF.ps1
 ├── docs/
@@ -42,6 +44,7 @@ O escopo comprovado no repositório é converter arquivos `.doc`, `.docx`, `.ppt
 - `README.md`: guia humano de uso e visão simples dos documentos de contexto.
 - `.gitignore`: proteção contra versionamento de arquivos gerados, documentos reais, temporários e logs.
 - `AGENTS.md`: regras estáveis para agentes de IA.
+- `CLAUDE.md`: adaptador curto para Claude Code / Claude Desktop; não duplica `AGENTS.md` e orienta leitura de `README.md`, `docs/PROJECT_STATE.md` e `docs/HANDOFF.md` quando necessário.
 - `docs/PROJECT_STATE.md`: estado operacional atual.
 - `docs/HANDOFF.md`: passagem de contexto para outro chat, agente, máquina ou sessão.
 
@@ -54,6 +57,7 @@ O escopo comprovado no repositório é converter arquivos `.doc`, `.docx`, `.ppt
 - Ignorar documentos Office e PDFs no Git para evitar vazamento de dados e arquivos gerados.
 - Usar `docs/PROJECT_STATE.md` como memória operacional contínua.
 - Usar `docs/HANDOFF.md` apenas como documento de transferência de contexto.
+- Usar `CLAUDE.md` apenas como adaptador para Claude, mantendo `AGENTS.md` como fonte principal de regras compartilhadas.
 - Não alterar `AGENTS.md` automaticamente no futuro; recomendar mudança quando regras permanentes precisarem ser atualizadas.
 - Priorizar arquitetura suficiente: resolver o problema atual com a menor estrutura clara possível, evitando camadas, interfaces e patterns formais sem necessidade real documentada.
 

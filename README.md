@@ -26,6 +26,7 @@ Este repositório também tem arquivos que ajudam pessoas e agentes de IA a ente
 
 - `README.md`: guia para pessoas, com explicação do projeto e modo de uso.
 - `AGENTS.md`: regras permanentes para Codex, OpenCode e outros agentes de IA.
+- `CLAUDE.md`: adaptador para Claude Code / Claude Desktop, apontando para `AGENTS.md` como fonte principal de regras.
 - `docs/PROJECT_STATE.md`: estado operacional atual do projeto, com decisões, pendências, limitações, testes e próximos passos.
 - `docs/HANDOFF.md`: resumo de passagem de contexto para continuar o projeto em outro chat, agente ou sessão.
 
