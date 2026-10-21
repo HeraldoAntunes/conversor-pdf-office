@@ -1,26 +1,76 @@
-# Arquivos gerados
-*.pdf
-
-# Documentos usados apenas para teste local
-*.doc
-*.docx
-*.ppt
-*.pptx
-
-# Temporários do Office
-~$*
-
-# Sistema
-Thumbs.db
-desktop.ini
-
-# Logs
-*.log
-.claude/
-
 # Documentos internos de trabalho (ficam só na pasta local)
 AGENTS.md
 CLAUDE.md
 docs/HANDOFF.md
 docs/PROJECT_STATE.md
+docs/TRABALHO-EM-CURSO.md
+docs/INPI/
+docs/auditoria/
+.claude/
 .codex/
+.agentes/
+
+# Segredos e chaves
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.pem
+*.key
+*.crt
+*.cer
+
+# Python e Node, se aparecer algo auxiliar
+.venv/
+venv/
+__pycache__/
+*.pyc
+node_modules/
+
+# Builds e saídas
+build/
+dist/
+out/
+.cache/
+.tmp/
+tmp/
+temp/
+
+# Logs, temporários e backups
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+
+# Dados, gravações e bancos locais (podem ter dados pessoais)
+dados/
+data/
+gravacoes/
+amostras/
+*.sqlite
+*.sqlite3
+*.db
+*.wav
+*.mp3
+*.m4a
+*.mp4
+*.mkv
+
+# Sistema e editores
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# Documentos de teste e PDFs gerados (podem ter dados de terceiros)
+*.pdf
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.xls
+*.xlsx
+~$*
