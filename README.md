@@ -1,44 +1,47 @@
 # Conversor PDF Office
 
-Script simples para converter arquivos do Word e PowerPoint em PDF no Windows.
+Script simples para Windows que converte de uma vez todos os arquivos `.doc`, `.docx`, `.ppt` e `.pptx` de uma pasta
+para PDF, usando o Word e o PowerPoint já instalados no computador. Nada é enviado para a internet.
 
 ## Arquivos
 
 - `converterPDF.ps1`: script principal em PowerShell.
-- `rodar.bat`: atalho para executar o script pelo Windows.
+- `rodar.bat`: atalho para executar o script com dois cliques.
 
 ## Como usar
 
 1. Coloque `converterPDF.ps1` e `rodar.bat` na mesma pasta dos arquivos que deseja converter.
 2. Dê dois cliques em `rodar.bat`.
-3. O script buscará arquivos `.doc`, `.docx`, `.ppt` e `.pptx` na mesma pasta.
-4. Os PDFs serão gerados na mesma pasta dos arquivos originais.
+3. O script procura arquivos `.doc`, `.docx`, `.ppt` e `.pptx` nessa pasta.
+4. Os PDFs são gerados na mesma pasta, com o mesmo nome dos originais.
 
 ## Requisitos
 
 - Windows.
-- Microsoft Word instalado, para converter arquivos `.doc` e `.docx`.
-- Microsoft PowerPoint instalado, para converter arquivos `.ppt` e `.pptx`.
+- Microsoft Word instalado, para converter `.doc` e `.docx`.
+- Microsoft PowerPoint instalado, para converter `.ppt` e `.pptx`.
 
-## Arquitetura de contexto
+## Limitações conhecidas
 
-Este repositório também tem arquivos que ajudam pessoas e agentes de IA a entenderem o projeto:
-
-- `README.md`: guia para pessoas, com explicação do projeto e modo de uso.
-- `AGENTS.md`: regras permanentes para Codex, OpenCode e outros agentes de IA.
-- `CLAUDE.md`: adaptador para Claude Code / Claude Desktop, apontando para `AGENTS.md` como fonte principal de regras.
-- `docs/PROJECT_STATE.md`: estado operacional atual do projeto, com decisões, pendências, limitações, testes e próximos passos.
-- `docs/HANDOFF.md`: resumo de passagem de contexto para continuar o projeto em outro chat, agente ou sessão.
-
-Em termos simples: o README explica o projeto para uma pessoa; os outros arquivos ajudam uma IA a continuar trabalhando sem perder o contexto.
+- Só converte os arquivos que estão diretamente na pasta do script; subpastas não entram.
+- Se já existir um PDF com o mesmo nome na pasta, ele pode ser substituído.
+- Quando a conversão de um arquivo falha, a mensagem no console é genérica ("Erro ao converter").
+- Depende da automação do Office instalado; se o Word ou o PowerPoint não abrir (falta de instalação ou de
+  licença), a conversão daquele tipo de arquivo não acontece.
 
 ## Observação de segurança
 
-O arquivo `rodar.bat` executa o script PowerShell usando `ExecutionPolicy Bypass`.
+O arquivo `rodar.bat` executa o script PowerShell com `ExecutionPolicy Bypass`, que libera a execução só desse
+script, sem mudar a configuração do Windows. Execute apenas se confiar no conteúdo dos arquivos e dos documentos que
+serão convertidos.
 
-Execute apenas se confiar no conteúdo dos arquivos e dos documentos que serão convertidos.
+As marcas citadas pertencem aos seus donos; o Conversor PDF Office é um projeto independente, sem vínculo com elas.
+
+## Como foi feito
+
+Desenvolvido por Heraldo Antunes com apoio de assistentes de programação de inteligência artificial, usados como
+ferramenta: a concepção, as decisões, a revisão e os testes são do autor, que responde pelo programa.
 
 ## Licença
 
-Este projeto pode ser usado para fins didáticos e pessoais.
-
+Distribuído sob a licença MIT. Veja o arquivo [LICENSE](LICENSE).
