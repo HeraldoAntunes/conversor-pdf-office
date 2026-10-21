@@ -1,3 +1,4 @@
+# Conversor PDF Office — © 2026 Heraldo Antunes — Licença MIT (ver LICENSE)
 # Força o uso da pasta EXATA onde este script (.ps1) está salvo
 $caminho = $PSScriptRoot
 
